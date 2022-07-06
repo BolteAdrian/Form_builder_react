@@ -13,7 +13,6 @@ const InputCSS = {
   }
 }
 
-
 const options = [
   "text",
   "textarea",
