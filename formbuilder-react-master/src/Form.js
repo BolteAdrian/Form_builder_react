@@ -6,6 +6,14 @@ import DeleteInput from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 
+const InputCSS = {
+  fontSize: '21px',
+  '&.MuiInputBase-root': {
+    borderColor: 'white',
+    color: 'white',
+  }
+}
+
 function Form({ fields, isEditable, submit, onEdit, onDelete }) {
   const [formFields, setFormFields] = useState({});
 
@@ -54,6 +62,9 @@ function Form({ fields, isEditable, submit, onEdit, onDelete }) {
                 <>
                   <label>{field.label} &nbsp; &nbsp;</label>
                   <Input
+                    sx={{
+                      ...InputCSS,
+                      }}
                     {...field}
                     value={formFields[field.name] || ""}
                     onChange={(event) =>

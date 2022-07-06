@@ -3,7 +3,16 @@ import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import AddIcon from "@mui/icons-material/Add";
+import AddIcon from '@mui/icons-material/Add';
+
+const InputCSS = {
+  fontSize: '21px',
+  '&.MuiInputBase-root': {
+    borderColor: 'white',
+    color: 'white',
+  }
+}
+
 
 const options = [
   "text",
@@ -59,6 +68,9 @@ function AddField({ createField, editField }) {
       <form onSubmit={addOrEditField}>
         <label>Label : </label>
         <Input
+           sx={{
+            ...InputCSS,
+            }}
           type="text"
           name="label"
           value={inputField.label}
@@ -68,16 +80,21 @@ function AddField({ createField, editField }) {
         <br></br>
         <label>Name : </label>
         <Input
+          sx={{
+            ...InputCSS,
+            }}
           type="text"
           name="name"
           value={inputField.name}
           onChange={onInputFieldUpdated}
           required
         />
-        <br></br>
-        <br></br>
+        <br></br><br></br>
         <label>Type : </label>
         <Select
+          sx={{
+            ...InputCSS,
+            }}
           name="type"
           value={inputField.type}
           onChange={onInputFieldUpdated}
@@ -91,9 +108,7 @@ function AddField({ createField, editField }) {
         </Select>
         <br></br>
         <br></br>
-        <Button startIcon={<AddIcon />} variant="outlined" type="submit">
-          {editField ? "Edit field" : "Add field"}
-        </Button>
+        <Button startIcon={<AddIcon/>} variant="outlined" type="submit">{editField ? "Edit field" : "Add field"}</Button>
       </form>
     </div>
   );

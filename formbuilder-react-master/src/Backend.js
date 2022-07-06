@@ -31,6 +31,6 @@ export const deleteField = async (id) => {
       "Content-Type": "application/json",
     },
   });
-  
+
   return await response.json();
 };
