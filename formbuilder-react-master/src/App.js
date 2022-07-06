@@ -3,8 +3,9 @@ import Form from "./Form";
 import AddField from "./AddField";
 import Button from "@mui/material/Button";
 import { useState, useEffect } from "react";
-import { FORM_BUILDER_URL } from "./Config";
 import DeleteInput from "@mui/icons-material/Delete";
+import { createNewField, editField, deleteField } from "./Backend";
+import { FORM_BUILDER_URL } from "./Config";
 
 function App() {
   const [fields, setField] = useState([]);
@@ -15,34 +16,15 @@ function App() {
     const oldFields = [...fields]; //adaugam campurile deja existente
     const found = oldFields.findIndex((field) => field.name === value.name); //cautam sa vedem daca nu exista deja acel camp
 
-    //daca acel cand nu exista se adauga
+    //daca acel field nu exista deja atunci se va adauga
     if (found < 0) {
-      //trimite cu post valorile la url-ul din mockapi
-      const response = await fetch(FORM_BUILDER_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(value),
-      });
-
-      const responseData = await response.json();
-
+      const responseData = await createNewField(value);
       oldFields.push(responseData);
       setField(oldFields);
     } else {
       const dbIndex = oldFields[found].id;
       oldFields[found] = { ...value, id: dbIndex };
-
-      //trimite cu post valorile la url-ul din mockapi
-      await fetch(FORM_BUILDER_URL + `/${dbIndex}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(value),
-      });
-
+      await editField(dbIndex, value);
       setField(oldFields);
       setCurrentField(null);
     }
@@ -54,24 +36,14 @@ function App() {
 
   //sterge un element si apoi reincarca
   const onDelete = async (id) => {
-    await deleteById(id);
+    await deleteField(id);
     await loadData();
-  };
-
-  //trimite cerere de delete la baza de date
-  const deleteById = async (id) => {
-    await fetch(FORM_BUILDER_URL + `/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
   };
 
   //sterge toate elementele
   const deleteBulk = async (id) => {
     for (const field of fields) {
-      await deleteById(field.id);
+      await deleteField(field.id);
     }
     await loadData();
   };
@@ -110,6 +82,7 @@ function App() {
           onDelete={onDelete}
           fields={fields}
         />
+        <br></br>
         <Button
           variant="outlined"
           startIcon={<DeleteInput />}

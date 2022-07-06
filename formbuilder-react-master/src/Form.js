@@ -3,6 +3,8 @@ import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import DeleteInput from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
 
 function Form({ fields, isEditable, submit, onEdit, onDelete }) {
   const [formFields, setFormFields] = useState({});
@@ -43,18 +45,19 @@ function Form({ fields, isEditable, submit, onEdit, onDelete }) {
                     multiple
                     type="file"
                   />
-                  <Button variant="contained" component="span">
-                    Upload
-                  </Button>
+                  <Button
+                    startIcon={<FileUploadIcon />}
+                    component="span"
+                  ></Button>
                 </label>
               ) : (
                 <>
                   <label>{field.label} &nbsp; &nbsp;</label>
                   <Input
                     {...field}
-                    value={formFields[field.name]}
-                    onChange={(newValue) =>
-                      onInputValueUpdated(field.name, newValue)
+                    value={formFields[field.name] || ""}
+                    onChange={(event) =>
+                      onInputValueUpdated(field.name, event.target.value)
                     }
                   />
                 </>
@@ -63,17 +66,15 @@ function Form({ fields, isEditable, submit, onEdit, onDelete }) {
               {isEditable ? (
                 <>
                   &nbsp;
-                  <Button type="button" onClick={() => onEdit(field)}>
-                    Edit
-                  </Button>
-                  &nbsp;
                   <Button
-                    variant="outlined"
+                    startIcon={<EditIcon />}
+                    type="button"
+                    onClick={() => onEdit(field)}
+                  ></Button>
+                  <Button
                     startIcon={<DeleteInput />}
                     onClick={() => onDelete(field.id)}
-                  >
-                    Delete
-                  </Button>
+                  ></Button>
                 </>
               ) : null}
             </div>
