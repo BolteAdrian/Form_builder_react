@@ -20,4 +20,4 @@ We can edit an existing form
 ![Screenshot from 2022-07-06 22-29-54](https://user-images.githubusercontent.com/87446991/177628074-942c3d79-a76f-4b20-bd7e-f0471e2d14f4.png)
 
 We can delete all the forms
-![Screenshot from 2022-07-02 03-04-44](https://user-images.githubusercontent.com/87446991/176978933-6ef91146-16e4-4464-989b-cd85db6b7dc8.png)
+![Screenshot from 2022-07-06 22-30-41](https://user-images.githubusercontent.com/87446991/177628193-46663daf-c0eb-4e71-8586-819418e43a73.png)
